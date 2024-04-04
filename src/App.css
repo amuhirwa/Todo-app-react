@@ -1,0 +1,147 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+* {
+  font-family: sans-serif;
+}
+
+body {
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 10% auto;
+  width: 800px;
+  min-height: 400px;
+  padding: 20px;
+  color: black;
+  background-color: white;
+  border-radius: 40px;
+  box-shadow: 1px 4px 10px 4px rgb(2, 2, 94);
+}
+.circle {
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  border: 1px solid black;
+  background-color: white;
+}
+.add_menu {
+  text-align: center;
+  align-items: center;
+  margin-left: 40vw;
+}
+.add_menu input {
+  border-radius: 8px;
+  padding: 10px;
+  border: 1px solid;
+}
+.add_menu button {
+    padding: 10px;
+    font-size: 2rem;
+    line-height: 0;
+    height: 40px;
+    background-color: rebeccapurple;
+    color: white;
+    border-radius: 4px;
+    border: none;
+    box-shadow: 1px 1px 4px black;
+}
+.display_tasks {
+  margin-top: 4%;
+}
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: rgba(188, 188, 188, 0.274);
+  padding: 10px;
+  position: relative;
+}
+.item:hover {
+    background-color: rgba(0, 128, 0, 0.274);
+    cursor: pointer;
+}
+.item.completed {
+    background-color: rgba(0, 128, 0, 0.274);
+    text-decoration: line-through;
+}
+.item.completed .circle {
+    background-color: greenyellow;
+}
+.item button {
+    background-color: red;
+    position: absolute;
+    right: 0;
+    border: none;
+    height: 100%;
+    width: 0;
+    padding: 0;
+    overflow: hidden;
+    transition: all .2s ease;
+}
+.item:hover button {
+    width: 60px;
+    cursor: pointer;
+}
+.item:hover button:nth-child(3) {
+  right: 60px;
+  background-color: rgb(216, 216, 13);
+}
+.clear-completed {
+  background-color: aliceblue;
+}
+
+.main {
+  display: flex;
+}
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.navbar .profile {
+  border-radius: 50%;
+  border: 1px solid black;
+  padding: 10px;
+}
+.navbar > * {
+  margin: 22px 40px 0;
+}
+.selected {
+  background-color: #008bff80 !important;
+}
+.add_button {
+  margin-left: 50%;
+  transform: translateX(-50%);
+}
+th {
+  padding: 8px;
+  border-bottom: 1px solid black;
+}
+tr:not(:last-child) {
+  text-align: center;
+}
+td {
+  padding: 8px;
+  cursor: pointer;
+}
+.Progress {
+  background-color: rgba(137, 43, 226, 0.606);
+}
+.Completed {
+  background-color: greenyellow;
+}
+.Started {
+  background-color: rgba(255, 0, 0, 0.606);
+}
+tr:hover .hidden {
+  display: block;
+}
+.projectComplete {
+  background-color: greenyellow;
+  text-decoration: line-through;
+}
