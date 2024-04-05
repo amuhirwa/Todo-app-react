@@ -5,7 +5,7 @@ import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import { Login } from "@mui/icons-material/Login";
 
-function Projects({projectsList, setProjectsList, setSelectedProject, selectedProject}) {
+function Projects({projectsList, setProjectsList, setSelectedProject, selectedProject, setTaskList}) {
     const [filteredProjects, setFilteredProjects] = useState(projectsList || []);
 
     useEffect(() => {
@@ -17,8 +17,6 @@ function Projects({projectsList, setProjectsList, setSelectedProject, selectedPr
         const filtered = projectsList.filter(project => project.name.toLowerCase().includes(value.toLowerCase()));
         setFilteredProjects(filtered);
     }
-
-    console.log(projectsList)
 
     function handleProjectClick(project, event) {
         setSelectedProject(project.id)
@@ -43,7 +41,11 @@ function Projects({projectsList, setProjectsList, setSelectedProject, selectedPr
         event.stopPropagation();
     }
     function deleteProject(currentProject, e) {
+        setTaskList(({ [currentProject.id]: _, ...rest }) => rest);
         setProjectsList(projectsList => projectsList.filter(project => project.id !== currentProject.id))
+        if (selectedProject === currentProject.id) {
+            setSelectedProject(0)
+        }
         e.stopPropagation();
     }
 
@@ -62,7 +64,7 @@ function Projects({projectsList, setProjectsList, setSelectedProject, selectedPr
                         </div>
                     ))}
                 </div>
-                <button className="p-2 bg-blue-500 text-white rounded-md mt-2 w-full" onClick={() => setProjectsList(projectsList => projectsList.filter(project => !project.completed))}>Clear Completed</button>
+                <button className="p-2 bg-blue-500 text-white rounded-md mt-2 w-full" onClick={(event) => projectsList.filter(project => project.completed).forEach(project => deleteProject(project, event))}>Clear Completed</button>
             </div>
             
         </div>

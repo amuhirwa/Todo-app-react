@@ -3,8 +3,8 @@ import { useState } from "react";
 function AddProject({setProjectsList, projectsList}) {
     const [inputData, setInputData] = useState('');
     function addProject(event) {
-        if(event.key === "Enter" || event.type === "click") {
-            const value = inputData;
+        if((event.key === "Enter" || event.type === "click") && inputData.trim() !== '') {
+            const value = inputData.trim();
             if(projectsList.length == 0){
                 projectsList = [{id: 1, name: value, tasks: [], completed: false}];
             }
@@ -12,9 +12,6 @@ function AddProject({setProjectsList, projectsList}) {
                 projectsList = [...projectsList, {id: projectsList.at(-1).id + 1,name: value, tasks: [], completed: false}];
             }
             setProjectsList(projectsList);
-        }
-        else {
-            console.log(event.target.value)
         }
     }
     

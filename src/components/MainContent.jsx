@@ -5,7 +5,10 @@ import Tasks from "./Tasks";
 function MainContent({projectsList, setProjectsList}) {
     const [taskList, setTaskList] = useState(JSON.parse(localStorage.getItem('task_list')) || {});
     const [selectedProject, setSelectedProject] = useState(0);
-    console.log('tasks',taskList)
+
+    useEffect(() => {
+
+    }, [projectsList])
 
     useEffect(() => {
         localStorage.setItem('task_list', JSON.stringify(taskList));
@@ -31,7 +34,7 @@ function MainContent({projectsList, setProjectsList}) {
 
     return (
         <div className="flex">
-            <Projects projectsList={projectsList} setProjectsList={setProjectsList} setSelectedProject={setSelectedProject} selectedProject={selectedProject}/>
+            <Projects projectsList={projectsList} setProjectsList={setProjectsList} setSelectedProject={setSelectedProject} selectedProject={selectedProject} setTaskList={setTaskList}/>
             <Tasks selectedProject={selectedProject} setProjectsList={setProjectsList} taskList={taskList} setTaskList={setTaskList} />
         </div>
     )

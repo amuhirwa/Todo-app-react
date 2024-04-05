@@ -6,7 +6,6 @@ function TopMenu(props) {
             <div style={{display: 'flex', alignItems: 'center'}} className="logo">
                 <h1 className="text-2xl">ToDo App</h1>
             </div>
-            <div className="profile">{user}</div>
         </div>)}
 
 export default TopMenu;

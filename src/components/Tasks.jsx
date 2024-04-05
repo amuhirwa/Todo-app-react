@@ -12,7 +12,7 @@ function Tasks({taskList, setTaskList, selectedProject, setProjectsList}) {
     const [formData, setFormData] = useState({startDate: '',endDate: '',});
     const [showStatusDropdown, setShowStatusDropdown] = useState({'bool': false, 'id': 0});
     const [filteredTasks, setFilteredTasks] = useState(taskList || []);
-
+    console.log(taskList)
     useEffect(() => {
         setFilteredTasks(taskList || []);
     }, [taskList]);
@@ -34,7 +34,6 @@ function Tasks({taskList, setTaskList, selectedProject, setProjectsList}) {
     }
 
     let newTask = true;
-    console.log(taskList)
 
     function areAllPresent(object, keys) {
         for (let key of keys) {
@@ -62,9 +61,10 @@ function Tasks({taskList, setTaskList, selectedProject, setProjectsList}) {
 
     function addTask(event) {
         let day = new Date(formData["endDate"]);
-        console.log(day)
-        console.log()
-        if(new Date(formData["endDate"]) < new Date(formData["startDate"])) {
+        if (new Date(formData["endDate"]) < new Date() || new Date(formData["startDate"]) < new Date()) {
+            alert("Date cannot be in the past");
+        }
+        else if(new Date(formData["endDate"]) < new Date(formData["startDate"])) {
             alert("End date cannot be before start date");
         }
         else if(areAllPresent(formData, ["task", "startDate", "endDate", "status"])) {
@@ -76,8 +76,6 @@ function Tasks({taskList, setTaskList, selectedProject, setProjectsList}) {
     }
     function handleStatusChange(event) {
         const newStatus = event.target.value;
-        console.log(newStatus)
-        console.log(taskList[selectedProject])
         setTaskList({ ...taskList, [selectedProject]: [...taskList[selectedProject]].map(task => task.id === showStatusDropdown['id'] ? { ...task, status: newStatus } : task) });
         toggleStatusDropdown();
     }
@@ -98,12 +96,10 @@ function Tasks({taskList, setTaskList, selectedProject, setProjectsList}) {
                 if(e.target.dataset.name === 'endDate' || e.target.dataset.name === 'startDate') {
                     if (isNaN(new Date(event.target.value).getTime())) {
                         alert('Invalid Date')
-                        console.log('time', taskList)
                         setTaskList({...taskList});
                         return;
                     }
                     if (new Date(event.target.value) < new Date()){
-                        console.log('list of them',taskList)
                         alert('Date can not be in the past.');
                         setTaskList({...taskList});
                         return;
@@ -142,12 +138,11 @@ function Tasks({taskList, setTaskList, selectedProject, setProjectsList}) {
         const filtered = taskList[selectedProject].filter(task => task.task.toLowerCase().includes(value.toLowerCase()));
         setFilteredTasks({...taskList, [selectedProject]: filtered});
     }
-    console.log(filteredTasks)
     return (
         <div className="w-2/3">{selectedProject > 0 ? 
             <>
                 <div className="flex gap-20 items-center">
-                    <TextField sx={{mb: 0.2, width: '60%'}} id="outlined-basic" label="Search for a task" variant="standard" size="small" onChange={searchTasks}  autoComplete={false} />
+                    <TextField sx={{mb: 0.2, width: '60%'}} id="outlined-basic" label="Search for a task" variant="standard" size="small" onChange={searchTasks}  autoComplete="false" />
                     <span className="text-xl text-blue-600">Completed Tasks: {filteredTasks[selectedProject] && filteredTasks[selectedProject].filter(task => task.status === 'Completed').length}{filteredTasks[selectedProject] && '/'+filteredTasks[selectedProject].length}</span>
                 </div>
                 <table className="w-full">
@@ -209,7 +204,7 @@ function Tasks({taskList, setTaskList, selectedProject, setProjectsList}) {
                             </TextField> 
                         </td>
                         <td>
-                            <button></button><button></button></td>
+                            </td>
                     </tr> </tbody>
 
                 </table>
